@@ -12,13 +12,14 @@ public class JDBCutil {
 
         try {
 //            DriverManager.registerDriver(new Driver());
-            Class.forName("com.mysql.cj.jdbc.Driver");
+           Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/BookStoreDB";
             String username = "root";
             String password = "root";
             cnt = DriverManager.getConnection(url, username, password);
         } catch (Exception e) {
-            System.out.println("e");
+            e.printStackTrace(); // Hiển thị thông tin chi tiết lỗi
+            System.out.println("Failed to connect to the database: " + e.getMessage());
         }
         return cnt;
     }

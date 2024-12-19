@@ -219,74 +219,15 @@ public class LoginController implements Initializable {
             alert.setContentText("Vui lòng điền đầy đủ thông tin cần thiết");
             alert.showAndWait();
         } else {
-//            try {
             HoldData tmp = new HoldData("dangNhap", lg_username.getText(), lg_password.getText());
-////                cnt = JDBCutil.getConnection();
-////                String query = "SELECT taiKhoan, matKhau FROM NhanVien WHERE taiKhoan = ? AND matKhau = ?;";
-////                pr = cnt.prepareStatement(query);
-////                pr.setString(1, lg_username.getText());
-////                pr.setString(2, lg_password.getText());
-////                rs = pr.executeQuery();
-//                if (rs.next()) {
-//                    alert = new Alert(Alert.AlertType.INFORMATION);
-//                    alert.setTitle("Thông báo!");
-//                    alert.setHeaderText(null);
-//                    alert.setContentText("Đăng nhập tài khoản thành công");
-//                    alert.showAndWait();
-//
-//                    Data.taiKhoan = lg_username.getText();
-//
-//                    Parent root = FXMLLoader.load(getClass().getResource("/view/FXMLHomeAdmin.fxml"));
-//                    Stage stage = new Stage();
-//                    Scene scene = new Scene(root);
-//                    stage.setTitle("Cafe Shop System");
-//                    stage.setMinHeight(600);
-//                    stage.setWidth(1300);
-//                    stage.setScene(scene);
-//                    stage.show();
-//
-//                    lg_loginbtn.getScene().getWindow().hide();
-//
-//                } else {
-//                    query = "SELECT taiKhoan, matKhau FROM KhachHang WHERE taiKhoan = ? AND matKhau = ?;";
-//                    pr = cnt.prepareStatement(query);
-//                    pr.setString(1, lg_username.getText());
-//                    pr.setString(2, lg_password.getText());
-//                    rs = pr.executeQuery();
-//                    if (rs.next()) {
-//                        alert = new Alert(Alert.AlertType.INFORMATION);
-//                        alert.setTitle("Thông báo!");
-//                        alert.setHeaderText(null);
-//                        alert.setContentText("Đăng nhập tài khoản thành công");
-//                        alert.showAndWait();
-//
-//                        Data.taiKhoan = lg_username.getText();
-//
-//                        Parent root = FXMLLoader.load(getClass().getResource("/view/FXMLHomeUser.fxml"));
-//                        Stage stage = new Stage();
-//                        Scene scene = new Scene(root);
-//                        stage.setTitle("Cafe Shop System");
-//                        stage.setMinHeight(600);
-//                        stage.setWidth(1300);
-//                        stage.setScene(scene);
-//                        stage.setResizable(false);
-//                        stage.show();
-//                        
-//                        lg_loginbtn.getScene().getWindow().hide();
-//                    } else {
-//                        alert = new Alert(Alert.AlertType.ERROR);
-//                        alert.setTitle("Thông báo lỗi!");
-//                        alert.setHeaderText(null);
-//                        alert.setContentText("Tài khoản hoặc mật khẩu không chính xác");
-//                        alert.showAndWait();
-//                    }
-//                }
-//                JDBCutil.closeConection(cnt);
+
             new Thread(() -> {
                 try (Socket socket = new Socket("localhost", 9999); ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream()); ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
 
                     out.writeObject(tmp);
                     String response = (String) in.readObject();
+                    System.out.println("Server response: " + response);
+
                     Platform.runLater(()->{
                         if ("NhanVien".equalsIgnoreCase(response)) {
                             try {
